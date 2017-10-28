@@ -1,0 +1,45 @@
+.TH keening "1" "03 October 2014"
+.SH NAME
+keening \- minimalistic paste
+
+.SH SYNOPSIS
+\fBkeening\fP [FILE]
+
+.SH DESCRIPTION
+\fBkeening\fP is a simple command line pastebin designed to be used
+together with `ssh'.
+
+\fBkeening\fP reads from stdin and writes data to a temporary file
+(no arguments) or a named one (one argument). It then prints the URL
+pointing to the paste.
+
+To create a temporary file, \fBkeening\fP calls
+.BR mkstemp(3)
+with the template submitted in `config.h'. As pastes are usually
+world-readable, \fBkeening\fP sets mode 0644.
+
+.SH CONFIGURATION
+To configure the template and url prefixes, edit `config.h'.
+
+.SH EXAMPLES
+Paste output of `ls -l' to temporary file:
+.PP
+.nf
+.RS
+ls -l | ssh $host keening
+.RE
+.fi
+.PP
+
+Paste output of `emerge --info' to named file:
+.PP
+.nf
+.RS
+emerge --info | ssh $host keening emerge-info
+.RE
+.fi
+.PP
+
+.SH BUGS
+Probably. Please report any bugs or issues on the github page.
+
